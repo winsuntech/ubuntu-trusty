@@ -2,13 +2,20 @@
 #define _ASM_X86_SERIAL_H
 
 /*
- * This assumes you have a 1.8432 MHz clock for your UART.
+ * This high clock frequency
+ */ 
+#ifdef CONFIG_X86_INTEL_CE_GEN3
+#define BASE_BAUD (14745600/16)
+#else
+
+/*s assumes you have a 1.8432 MHz clock for your UART.
  *
  * It'd be nice if someone built a serial card with a 24.576 MHz
  * clock, since the 16550A is capable of handling a top speed of 1.5
  * megabits/second; but this requires a faster clock.
  */
 #define BASE_BAUD (1843200/16)
+#endif
 
 /* Standard COM flags (except for COM4, because of the 8514 problem) */
 #ifdef CONFIG_SERIAL_8250_DETECT_IRQ
